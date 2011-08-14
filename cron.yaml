@@ -1,0 +1,4 @@
+cron:
+- description: daily allowance job
+  url: /cron/allowance
+  schedule: every 24 hours

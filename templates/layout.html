@@ -1,0 +1,122 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        
+    <title>
+        {% block title %}{% endblock title %} Kid VM - Allowance Tracking and Management
+    </title>
+
+    <link type="text/css" href="/static/css/style.css" rel="stylesheet" />
+    {% block page_css %}
+        <link type="text/css" href="/static/css/jquery.cleditor.css" rel="stylesheet" />
+    {% endblock page_css %}
+    <script type="text/javascript" src="/static/js/jquery-1.4.2.min.js"></script>
+    {% block page_js %}
+        <script type="text/javascript" src="/static/js/jquery-ui-1.8.5.custom.min.js"></script>
+        <script type="text/javascript" src="/static/js/cufon-yui.js"></script>
+        <script type="text/javascript" src="/static/js/ColaborateLight_400.font.js"></script>
+        <script type="text/javascript" src="/static/js/easyTooltip.js"></script>
+        <script type="text/javascript" src="/static/js/jquery.tablesorter.min.js"></script>
+    {% endblock page_js %}
+        
+    <!--[if IE 8]>
+        <script type='text/javascript' src='js/excanvas.js'></script>
+        <link rel="stylesheet" href="css/IEfix.css" type="text/css" media="screen" />
+    <![endif]--> 
+    
+    <!--[if IE 7]>
+        <script type='text/javascript' src='js/excanvas.js'></script>
+        <link rel="stylesheet" href="css/IEfix.css" type="text/css" media="screen" />
+    <![endif]--> 
+        
+    <script type="text/javascript" src="/static/js/visualize.jQuery.js"></script>
+    <script type="text/javascript" src="/static/js/iphone-style-checkboxes.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.cleditor.min.js"></script>
+    <script type="text/javascript" src="/static/js/custom.js"></script>
+</head>
+
+<body>
+    {% block body %}
+    <div id="container">
+        <div id="bgwrap">
+            <div id="primary_left">
+                <div id="logo">
+                    {% if current_user %}
+                        <a href="{{ url_for('/account') }}" title="Dashboard">
+                    {% else %}
+                        <a href="/" title="Home">
+                    {% endif %}
+                        <img src="/static/images/logo.png" alt="Kid VM - Simple Allowance Management" />
+                    </a>
+                </div>
+                <div id="menu">
+                    <ul>
+                        {% if current_user %}
+                            <li {% if page_id == "account" %}class="current"{% endif %}>
+                                <a href="{{ url_for('/account') }}" class="dashboard">
+                                    <img src="/static/images/icons/small_icons/Home.png" />
+                                    <span>Dashboard</span>
+                                </a>
+                            </li>
+                            {% block menu %}{% endblock menu %}
+                            <li>
+                                <a href="{{ logout_url }}">
+                                    <img src="/static/images/icons/small_icons/Lock.png" />
+                                    <span>Logout</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="{{ register_url }}">
+                                    <img src="/static/images/icons/small_icons/Notes.png" />
+                                    <span>Signup</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ login_url }}">
+                                    <img src="/static/images/icons/small_icons/Lock.png" />
+                                    <span>Login</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div id="primary_right">
+                <div class="inner">
+                    <h1>{% block page_title %}Kid VM{% endblock page_title %}</h1>
+
+                    {% for msg in messages %}
+                        <div class="notification {{ msg.level }}">
+                            <span></span>
+                            <div class="text">
+                                <p>
+                                    <strong>{{ msg.level }}</strong>
+                                    {{ msg.body }}
+                                </p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% block content %}{% endblock content %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock body %}
+
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-16428972-6']);
+      _gaq.push(['_trackPageview']);
+     
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+     
+    </script>
+</body>
+</html>

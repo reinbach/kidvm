@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <p>
+        Need a simple way to manage your kid(s) allowances. Then <a href="{{ register_url }}">Sign Up!</a>
+    </p>
+
+    <hr />
+
+    <h2>What You Can Do (the features)</h2>
+
+    <ol>
+        <li>Add Your Kid(s)</li>
+        <li>Add Allowance(s)</li>
+        <li>Add Transactions</li>
+        <li>View Balance <small>(automagically calculated)</small></li>
+    </ol>
+
+    <p>
+        Once you enter in the allowance it will automatically be added as a transaction on the due dates, till you stop it.
+    </p>
+
+    <p>
+        You no longer have to worry about what the balance is, although you will need to enter in the relevant transactions. For example when you buy your kid that game. The amount of the video game will be deducted from the balance.
+    </p>
+{% endblock content %}

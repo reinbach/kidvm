@@ -1,0 +1,141 @@
+{% extends "kid/layout.html" %}
+{% block title %}{{ kid.name }}{% endblock title %}
+{% block page_title %}{{ kid.name }}{% endblock page_title %}
+{% block content %}
+    <h2>Current Balance: ${{ "%.2f"|format(kid.balance) }}</h2>
+
+    <div style="clearboth"></div>
+
+    <hr />
+
+    <h1>Charts and Graphs</h1>
+    <div style="clearboth"></div>
+    
+    <div class="tabs">
+        <div class="ui-widget-header">
+            <span>Allowances, Income and Expenses</span>
+            <ul>
+                <li><a href="#tabs-1">Balance</a></li>
+            </ul>
+        </div>
+
+        <div id="tabs-1">
+            <table class="stats line">
+                <thead>
+                    <tr>
+                        {% for day in kid.history %}
+                            <th scope="col">
+                                {% if day.0.strftime("%d") == "01" %}
+                                    {{ day.0.strftime("%b") }}
+                                {% else %}
+                                    {{ day.0.strftime("%d") }}
+                                {% endif %}
+                            </th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Balance</th>
+                        {% for day in kid.history %}
+                            <td>{{ day.1 }}</td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div syle="clearboth"></div>
+    
+    <hr />
+
+    <h1>Allowances</h1>
+    <div style="clearboth"></div>
+    <table class="normal tablesorter">
+        <thead>
+            <tr>
+                <th class="header">Period</th>
+                <th class="header">Day</th>
+                <th class="header">Amount</th>
+                <th class="header">Active</th>
+                <th class="header">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for allowance in allowance_list %}
+                <tr>
+                    <td>{{ allowance.period }}</td>
+                    <td>{{ allowance.period_day }}</td>
+                    <td align="right">${{ "%.2f"|format(allowance.amount) }}</td>
+                    <td>{{ allowance.is_active }}</td>
+                    <td>
+                        <a href="{{ url_for('/kid/allowance/edit', allowance_key=allowance.key()) }}" title="Edit this Allowance" class="tooltip table_icon">
+                            <img src="/static/images/icons/actions_small/Pencil.png" alt="Edit" />
+                        </a>
+                        <a href="{{ url_for('/kid/allowance/delete', allowance_key=allowance.key()) }}" title="Delete this Allowance" class="tooltip table_icon">
+                            <img src="/static/images/icons/actions_small/Trash.png" alt="Delete" />
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">
+                        You need to <a href="{{ url_for('/kid/allowance/add', kid_key=kid.key()) }}">add an allowance</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p>
+        <a href="{{ url_for('/kid/allowance/add', kid_key=kid.key()) }}" class="button_link">Add Allowance</a>
+    </p>
+
+    <div syle="clearboth"></div>
+    
+    <hr />
+
+    <h1>Transactions</h1>
+    <table class="normal tablesorter">
+        <thead>
+            <tr>
+                <th class="header">Date</th>
+                <th class="header">Category</th>
+                <th class="header">Description</th>
+                <th class="header">Allowance</th>
+                <th class="header">Amount</th>
+                <th class="header">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for trx in transaction_list %}
+                <tr>
+                    <td>{{ trx.transaction_date.strftime("%m/%d/%Y") }}</td>
+                    <td>{{ trx.category }}</td>
+                    <td>{{ trx.description }}</td>
+                    <td>{{ trx.allowance }}</td>
+                    <td align="right">${{ "%.2f"|format(trx.amount) }}</td>
+                    <td>
+                        <a href="{{ url_for('/kid/transaction/edit', transaction_key=trx.key()) }}" title="Edit this Transaction" class="tooltip table_icon">
+                            <img src="/static/images/icons/actions_small/Pencil.png" alt="Edit" />
+                        </a>
+                        <a href="{{ url_for('/kid/transaction/delete', transaction_key=trx.key()) }}" title="Delete this Transaction" class="tooltip table_icon">
+                            <img src="/static/images/icons/actions_small/Trash.png" alt="Delete" />
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">
+                        You need to <a href="{{ url_for('/kid/transaction/add', kid_key=kid.key()) }}">add a transaction</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p>
+        <a href="{{ url_for('/kid/transaction/add', kid_key=kid.key()) }}" class="button_link">Add Transaction</a>
+    </p>
+{% endblock content %}

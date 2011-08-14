@@ -1,0 +1,32 @@
+{% extends "kid/layout.html" %}
+{% from "_form_macros.html" import form_field %}
+{% block content %}
+    <form method="post" id="transaction" action="">
+        <fieldset>
+            <legend>Save Transaction Information</legend>
+
+            <p>
+                {{ form_field(form.transaction_date, class="datepicker") }}
+            </p>
+
+            <p>
+                {{ form_field(form.amount, class="sf") }}
+            </p>
+
+            <p>
+                {{ form_field(form.category, class="sf") }}
+            </p>
+
+            <p>
+                {{ form_field(form.description, class="lf") }}
+            </p>
+
+            <div class="clearboth"></div>
+
+            <p>
+                <input type="submit" class="button" value="Submit">
+                <a href="{{ url_for('/kid/view', kid_key=kid.key()) }}" class="button_link">Cancel</a>
+            </p>
+        </fieldset>
+    </form>
+{% endblock content %}

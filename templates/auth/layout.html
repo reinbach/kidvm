@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% from "_form_macros.html" import form_field %}
+
+{% block page_css %}
+    <link type="text/css" href="/static/css/login.css" rel="stylesheet" />
+    <!--[if IE 8]>
+        <link rel="stylesheet" href="css/loginIEfix.css" type="text/css" media="screen" />
+    <![endif]--> 
+    <!--[if IE 7]>
+        <link rel="stylesheet" href="css/loginIEfix.css" type="text/css" media="screen" />
+    <![endif]--> 
+{% endblock page_css %}
+
+{% block body %}
+    <div id="line"></div>
+    <div id="background">
+        <div id="container">
+            <div id="logo">
+                <img src="/static/images/logologin.png" alt="Logo" />
+            </div>
+            <div id="box">
+                {% for msg in messages %}
+                    <div class="notification {{ msg.level }}">
+                        <span></span>
+                        <div class="text">
+                            <p>
+                                <strong>{{ msg.level }}</strong>
+                                {{ msg.body }}
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% block body_auth %}{% endblock body_auth %}
+            </div>
+        </div>
+    </div>
+{% endblock body %}

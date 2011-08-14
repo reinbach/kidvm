@@ -1,0 +1,12 @@
+{% extends "account/layout.html" %}
+{% block page_title %}Plans{% endblock page_title %}
+
+{% block content %}
+    <p><a href="{{ url_for('/account/plan/add') }}">Add New Plan</a></p>
+
+    <ul>
+    {% for plan in plan_list %}
+        <li>{{ plan }}</li>
+    {% endfor %}
+    </ul>
+{% endblock content %}

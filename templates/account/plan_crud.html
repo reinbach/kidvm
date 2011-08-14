@@ -1,0 +1,38 @@
+{% extends "account/layout.html" %}
+{% block page_title %}Plans{% endblock page_title %}
+
+{% from "_form_macros.html" import form_field %}
+
+{% block content %}
+    <form method="post" id="plan" action="">
+        <fieldset>
+            <legend>Save Plan Information</legend>
+            <p>
+                {{ form_field(form.name, class="mf") }}
+            </p>
+
+            <p>
+                {{ form_field(form.plan_key, class="sf") }}
+            </p>
+
+            <div class="one_fourth">
+                <p>
+                    {{ form_field(form.is_active) }}
+                </p>
+            </div>
+
+            <div class="one_fourth">
+                <p>
+                    {{ form_field(form.default) }}
+                </p>
+            </div>
+
+            <div class="clearboth"></div>
+
+            <p>
+                <input type="submit" class="button" value="Submit">
+                <input type="reset" class="button" value="Reset">
+            </p>
+        </fieldset>
+    </form>
+{% endblock content %}

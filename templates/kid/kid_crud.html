@@ -1,0 +1,35 @@
+{% extends "kid/layout.html" %}
+{% from "_form_macros.html" import form_field %}
+
+{% block content %}
+    <form method="post" id="kid" action="">
+        <fieldset>
+            <legend>Save Kid Information</legend>
+
+            <p>
+                {{ form_field(form.name, class="mf") }}
+            </p>
+
+            <p>
+                {{ form_field(form.birthday, class="datepicker") }}
+            </p>
+
+            <p>
+                {{ form_field(form.opening_balance, class="sf") }}
+            </p>
+
+            <div class="one_fourth">
+                <p>
+                    {{ form_field(form.is_active) }}
+                </p>
+            </div>
+
+            <div class="clearboth"></div>
+
+            <p>
+                <input type="submit" class="button" value="Submit">
+                <a href="{{ url_for('/kid') }}" class="button_link">Cancel</a>
+            </p>
+        </fieldset>
+    </form>
+{% endblock content %}

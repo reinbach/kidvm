@@ -1,0 +1,40 @@
+{% extends "auth/layout.html" %}
+
+{% block page_js %}
+    <script type="text/javascript" src="/static/js/iphone-style-checkboxes.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            jQuery(".iphone").iphoneStyle();
+        });
+    </script>
+    <!--[if IE 8]>
+        <script type='text/javascript' src='js/excanvas.js'></script>
+    <![endif]--> 
+    <!--[if IE 7]>
+        <script type='text/javascript' src='js/excanvas.js'></script>
+    <![endif]--> 
+{% endblock page_js %}
+
+{% block body_auth %}
+    <form method="post" action="{{ current_url }}" enctype="multipart/form-data">
+        <div class="one_half">
+            <p>{{ form_field(form.username, class="field") }}</p>
+            <p>{{ form_field(form.remember, class="iphone") }}</p>
+        </div>
+        <div class="one_half last">
+            <p>{{ form_field(form.password, class="field") }}</p>
+            <p><input type="submit" name="submit" value="{{ _('Login') }}" class="login"></p>
+        </div>
+    </form>
+    
+    <p style="clear: both;">
+        Don't have an account? <a href="{{ url_for('auth/register') }}">Create a new one</a>.
+    </p>
+
+    <p>Or select a service to sign in with:</p>
+    <p>
+        <a href="{{ facebook_login_url }}" title="Sign in with Facebook"><img src="/static/images/facebook.png" width="60" height="60" alt="Sign in with Facebook"></a>
+        <a href="{{ google_login_url }}" title="Sign in with Google"><img src="/static/images/google.png" width="60" height="60" alt="Sign in with Google"></a>
+        <a href="{{ twitter_login_url }}" title="Sign in with Twitter"><img src="/static/images/twitter.png" width="60" height="60" alt="Sign in with Twitter"></a>
+    </p>
+{% endblock body_auth %}

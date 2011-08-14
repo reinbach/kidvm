@@ -1,0 +1,36 @@
+{% extends "account/layout.html" %}
+
+{% block content %}
+    <ul class="dash">
+        <li class="fade_hover tooltip" title="Manage Kids">
+            <a href="{{ url_for('/kid') }}">
+                <img src="/static/images/icons/dashboard/54.png">
+                <span>Kids</span>
+            </a>
+        </li>
+        {% if account.public_view %}
+            <li class="fade_hover tooltip" title="Click to allow public view (read only)">
+                <a href="{{ url_for('/account/public/toggle') }}">
+                    <img src="/static/images/icons/dashboard/37.png">
+                    <span>No Public View</span>
+                </a>
+            </li>
+        {% else %}
+            <li class="fade_hover tooltip" title="Click to disable public view">
+                <a href="{{ url_for('/account/public/toggle') }}">
+                    <img src="/static/images/icons/dashboard/39.png">
+                    <span>Public Viewable</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if current_user.is_admin %}
+            <li>
+                <a href="{{ url_for('/account/plan') }}">
+                    <img src="/static/images/icons/dashboard/5.png">
+                    <span>Plans</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+
+{% endblock content %}

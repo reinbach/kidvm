@@ -1,0 +1,61 @@
+{% extends "kid/layout.html" %}
+{% from "_form_macros.html" import form_field %}
+{% block page_js %}
+    {{ super() }}
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            jQuery("#period").bind("change", function() {
+                setPeriodDaySelect();
+            });
+            setPeriodDaySelect();
+        });
+
+        function setPeriodDaySelect() {
+            jQuery.ajax({
+                url: "{{ url_for('/kid/allowance/period') }}?period=" + jQuery("#period").val(),
+                success: function(data) {
+                    jQuery("#period_day").find("option").remove();
+                    period_data = data["period"]
+                    for (i in period_data) {
+                        jQuery("#period_day").append(
+                           "<option value=" + period_data[i][0] + ">" + period_data[i][1] + "</option>"
+                        );
+                    }
+                }
+            });
+        }
+    </script>
+{% endblock page_js %}
+
+{% block content %}
+    <form method="post" id="allowance" action="">
+        <fieldset>
+            <legend>Save Allowance Information</legend>
+
+            <p>
+                {{ form_field(form.period, class="dropdown") }}
+            </p>
+
+            <p>
+                {{ form_field(form.period_day, class="dropdown") }}
+            </p>
+
+            <p>
+                {{ form_field(form.amount, class="sf") }}
+            </p>
+
+            <div class="one_fourth">
+                <p>
+                    {{ form_field(form.is_active) }}
+                </p>
+            </div>
+
+            <div class="clearboth"></div>
+
+            <p>
+                <input type="submit" class="button" value="Submit">
+                <a href="{{ url_for('/kid/view', kid_key=kid.key()) }}" class="button_link">Cancel</a>
+            </p>
+        </fieldset>
+    </form>
+{% endblock content %}

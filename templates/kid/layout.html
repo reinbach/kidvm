@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}Kids{% endblock %}
+{% block page_title %}Kids{% endblock page_title %}
+
+{% block menu %}
+    <li class="current">
+        <a href="#">
+            <img src="/static/images/icons/small_icons/People.png" />
+            <span>Kids</span>
+        </a>
+        <ul style="display: block;">
+            {% for kid in kid_list %}
+                <li>
+                    <a href="{{ url_for('/kid/view', kid_key=kid.key()) }}">
+                        {{ kid.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </li>
+{% endblock menu %}
